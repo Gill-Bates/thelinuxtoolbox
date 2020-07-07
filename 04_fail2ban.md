@@ -11,8 +11,8 @@ Fail2ban is extremely easy to install ```apt install fail2ban```. There are nume
 ## Setup
 ### Create the `jail.local`
 ***Replace `<yourpublicip>` with your own IP. Don't remove the `/32` at the end!***
+Open the editor with `nano /etc/fail2ban/jail.local``
 ```
-nano /etc/fail2ban/jail.local`
 ### The Baseline
 Copy & Paste this code
 `###### Configuration ######
@@ -34,3 +34,6 @@ bantime  = 48h
 maxretry = 3
 findtime = 10m
 ```
+Save & Close
+
+Secure your file with `chmod 640 /etc/fail2ban/jail.local`
