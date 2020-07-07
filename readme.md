@@ -1,5 +1,5 @@
 # The Linux Toolbox
-![The Linux Toolbox Logo](/images/logo.png)
+![The Linux Toolbox Logo](/images/logosmall.png)
 ## All Scripts are designed and testet for Debian 10 (Buster)
 
 With this repository I provide to the general public with a collection of helpful configuration settings.
