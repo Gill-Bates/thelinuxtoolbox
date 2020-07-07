@@ -2,9 +2,9 @@
 
 ## All Scripts are designed and testet for Debian 10 (Buster)
 
-With this repository I provide the general public with a collection of helpful configuration settings.
+With this repository I provide to the general public with a collection of helpful configuration settings.
 
-It has taken me countless hours to gather all this information in various forums on the Internet. I would have always wished for a central place where all my documentation is located. Voila - here it is!
+It has taken me countless hours to gather all this information in various forums or Blog postings on the Internet. Some of them were good, some accurate, some obsolete, or many simply wrong. I would have always wished for a central place where all my documentation is located. Voila - here it is!
 
 ## Game rules
 * All scripts comes "at it is" - without any guarantee. Copy & Paste does not absolve you from using your brain!
