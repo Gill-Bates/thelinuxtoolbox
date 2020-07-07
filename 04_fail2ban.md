@@ -9,10 +9,11 @@ Fail2ban is extremely easy to install ```apt install fail2ban```. There are nume
 * Every change on your `jail.local` requires a reload of the Service `systemctl reload fail2ban`
 
 ## Setup
-### Create the `jail.local`
-***Replace `<yourpublicip>` with your own IP. Don't remove the `/32` at the end!***
+### Create the Configuration
 
-Open the editor with `nano /etc/fail2ban/jail.local`. Copy & Paste the following code:
+Open the editor with `nano /etc/fail2ban/jail.local`. Copy & Paste the following code.
+
+***Replace `<yourpublicip>` with your own IP. Don't remove the `/32` at the end!***
 ```
 ### The Baseline
 Copy & Paste this code
