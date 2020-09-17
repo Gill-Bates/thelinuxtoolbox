@@ -18,55 +18,30 @@ A reverse proxy is the state-of-the-art implementation when offering web service
 
 Copy & Paste
 `
-# General Configuration
-cache_mem 128 MB
-
-# SSL configuration
-#
-
-# Ensure you enter each configuration directive on a single line
-acl is_ssl port 443
-https_port 443 cert=/etc/pki/tls/certs/lb.crt key=/etc/pki/tls/certs/lb.key accel vhost name=proxy_ssl
-cache_peer proxya.example.com parent 443 0 no-query originserver round-robin ssl name=proxya.example.com sslcafile=/etc/pki/tls/certs/squid-ca.crt
-cache_peer proxyb.example.com parent 443 0 no-query originserver round-robin ssl name=proxyb.example.com sslcafile=/etc/pki/tls/certs/squid-ca.crt
-cache_peer_access proxya.example.com allow is_ssl
-cache_peer_access proxya.example.com deny !is_ssl
-cache_peer_access proxyb.example.com allow is_ssl
-cache_peer_access proxyb.example.com deny !is_ssl
-http_access allow is_ssl
-
-#
-# Non-SSL configuration
-#
-
-# Listening Port
-http_port 80 # Listening Port
-# Cache in RAM
+# Cache Settings
 cache_mem 128 MB # Cache in RAM
+maximum_object_size_in_memory 50000 KB
 # Cache on Disk
 cache_dir ufs /var/cache/squid/ 100 16 256 # Cache File Location
-# Location Logfiles
-cache_access_log /var/log/squid/access.log, cache_log /var/log/squid/cache.log, cache_store_log /var/log/squid/store.log
 # Let Logrotate handle the logs
 logfile_rotate 0
 # Network
 client_netmask 255.255.255.255
 
 # Single Host
-httpd_accel_single_host on
-httpd_accel_host 127.0.0.1
-httpd_accel_uses_host_header on
+https_port 443 accel cert=/etc/letsencrypt/live/vpn.cloudtrics.de/cert.pem key=/etc/squid/certificates/server.key cafile=/etc/squid/certificates/cacert.crt defaultsite=yourwebserver vhost
+http_port 80 accel defaultsite=127.0.0.1 vhost
+cache_peer 127.0.0.1 parent 8081 0 no-query originserver login=PASS name=webserver
 
-
-acl nonssl port 80
-httpd_accel_single_host on
-http_port 80 accel name=proxy_nonssl defaultsite=dhcp16.example.com
-cache_peer 127.0.0.1 parent 80 0 no-query name=proxy_nonssl originserver
-cache_peer_access proxy_nonssl allow nonssl
-cache_peer_access proxy_nonssl deny !nonssl
-http_access allow nonssl
-sslpassword_program /bin/password.out
-forwarded_for on
+# ACL
+http_access allow all
 `
-#### 3. Change the default Ports
+#### 3. Create SWAP-Folder
+`systemctl stop squid.service`
+`sudo mkdir /var/cache/squid && chown -R proxy /var/cache/squid`
+`squid -z`
+
+#### 4. Change the default Ports
 `nano /etc/apache2/ports.conf`
+* Port 80 = 8080
+* Port 443 = 4430
